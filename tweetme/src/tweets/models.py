@@ -53,6 +53,7 @@ class Tweet(models.Model):
     content = models.CharField(max_length=140, validators=[validate_content])
     liked = models.ManyToManyField(
         settings.AUTH_USER_MODEL, blank=True, related_name="liked")
+    reply = models.BooleanField(verbose_name="Is a reply?", default=False)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -63,6 +64,18 @@ class Tweet(models.Model):
 
     def get_absolute_url(self):
         return reverse("tweet:detail", kwargs={"pk": self.pk})
+
+    def get_parent(self):
+        the_parent = self
+        if self.parent:
+            the_parent = self.parent
+        return the_parent
+
+    def get_children(self):
+        parent = self.get_parent()
+        qs = Tweet.objects.filter(parent=parent)
+        qs_parent = Tweet.objects.filter(pk=parent.pk)
+        return (qs | qs_parent)
 
     class Meta:
         ordering = ['-timestamp']

@@ -15,7 +15,7 @@
   </div>
   <div class="col-sm-9">
     {% if not request.GET.q %}
-    {% include "tweets/form.html" with form=create_form action_url=create_url btn_title="Tweet" form_id="tweet-form"%} 
+    {% include "tweets/form.html" with form=create_form action_url=create_url btn_title="Tweet" form_class="tweet-form"%} 
     {% endif %}
     <div class="col-sm-12">
       <hr />
