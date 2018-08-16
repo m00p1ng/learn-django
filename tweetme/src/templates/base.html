@@ -21,7 +21,7 @@
 <body>
   {% include "navbar.html" %}
   {% include "reply-modal.html" %}
-  <div class="container">
+  <div class="container" style="margin-top: 1.2em;">
     {% block content %}{% endblock %}
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -112,7 +112,7 @@
       });
 
       const updateHashLinks = () => {
-        $(".media-body").each(function (data) {
+        $(".tweet-content").each(function (data) {
           let hashtagRegex = /(^|\s)#([\w\d-]+)/g
           let usernameRegex = /(^|\s)@([\w\d-]+)/g
           let currentHTML = $(this).html();
@@ -336,7 +336,7 @@
 
       function doneSearchTyping() {
         if (searchQuery) {
-          let url = `/tweet/search/?q=${searchQuery}`;
+          let url = `/search/?q=${searchQuery}`;
           document.location.href = url;
         }
       }

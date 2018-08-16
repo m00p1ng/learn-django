@@ -26,9 +26,13 @@ class ParentTweetModelSerializer(serializers.ModelSerializer):
         ]
 
     def get_did_like(self, obj):
-        request = self.context.get("request")
-        user = request.user
-        return user.is_authenticated and user in obj.liked.all()
+        try:
+            request = self.context.get("request")
+            user = request.user
+            return user.is_authenticated and user in obj.liked.all()
+        except:
+            pass
+        return False
 
     def get_likes(self, obj):
         return obj.liked.all().count()
@@ -67,9 +71,13 @@ class TweetModelSerializer(serializers.ModelSerializer):
         # read_only_fields = ['reply']
 
     def get_did_like(self, obj):
-        request = self.context.get("request")
-        user = request.user
-        return user.is_authenticated and user in obj.liked.all()
+        try:
+            request = self.context.get("request")
+            user = request.user
+            return user.is_authenticated and user in obj.liked.all()
+        except:
+            pass
+        return False
 
     def get_likes(self, obj):
         return obj.liked.all().count()
