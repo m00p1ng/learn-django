@@ -53,7 +53,7 @@ class TweetDetailView(DetailView):
         return Tweet.objects.get(id=pk)
 
 
-class TweetListView(ListView):
+class TweetListView(LoginRequiredMixin, ListView):
     queryset = Tweet.objects.all()
 
     def get_context_data(self, *args, **kwargs):

@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from accounts.views import UserRegisterView
 from hashtags.api.views import TagTweetAPIView
 from hashtags.views import HashTagView
 from tweets.api.views import SearchTweetAPIView
@@ -36,6 +37,8 @@ urlpatterns = [
     path('api/', include('accounts.api.urls')),
     path('tags/<slug:hashtag>/', HashTagView.as_view(), name="hashtag"),
     path('tweet/', include('tweets.urls')),
+    path('register/', UserRegisterView.as_view(), name="register"),
+    path('', include('django.contrib.auth.urls')),
     path('', include('accounts.urls')),
 ]
 
